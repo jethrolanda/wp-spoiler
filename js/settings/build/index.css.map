@@ -1,0 +1,1 @@
+{"version":3,"file":"index.css","mappings":";;;AACE;EACI;EACA;EACA;AAAN,C","sources":["webpack://settings/./style/main.scss"],"sourcesContent":["#spoiler-settings {\r\n  .app-title {\r\n      font-size: 1.5em;\r\n      font-weight: bold;\r\n      margin-bottom: 1em;\r\n  }\r\n} "],"names":[],"sourceRoot":""}
