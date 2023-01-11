@@ -110,6 +110,28 @@ final class WPS_Bootstrap
         register_activation_hook(WPS_PLUGIN_FILE, array($this, 'activated_plugin'));
         register_deactivation_hook(WPS_PLUGIN_FILE, array($this, 'deactivated_plugin'));
 
+        // Register Spoiler Post Type
+        add_action( 'init', array($this, 'register_spoiler_post_type') );
+
+    }
+
+    public function register_spoiler_post_type() {
+
+        register_post_type( 'spoiler',
+        // CPT Options
+            array(
+                'labels' => array(
+                    'name' => __( 'Spoilers' ),
+                    'singular_name' => __( 'Spoiler' )
+                ),
+                'public' => true,
+                'has_archive' => true,
+                'rewrite' => array('slug' => 'spoilers'),
+                'show_in_rest' => true,
+                // 'show_in_menu' => false
+            )
+        );
+
     }
 
     /**

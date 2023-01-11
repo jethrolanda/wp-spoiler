@@ -4,4 +4,20 @@
       font-weight: bold;
       margin-bottom: 1em;
   }
+
+  .ui.right.floated.menu{
+    padding-top: 0px;
+  }
+  .ui.compact.vertical.menu{
+    padding-top: 0px;
+  }
+
 } 
+
+// Modal BG
+.ui.dimmer{
+  z-index: 99999!important;
+}
+.form-actions{
+  justify-content: flex-end;
+}

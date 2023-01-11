@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Scripts class
  *
@@ -55,8 +56,15 @@ class WPS_Scripts
         //     $asset_file['dependencies'],
         //     $asset_file['version']
         // );
-        wp_enqueue_style( 'spoiler-style', WPS_PLUGIN_URL . '/js/settings/build/index.css' );
-        wp_enqueue_script( 'spoiler-script', WPS_PLUGIN_URL . '/js/settings/build/index.js', array( 'wp-element' ), '1.0.0', true );
+        if(isset($_GET['page']) && $_GET['page'] == 'spoiler_settings'){
+            wp_enqueue_style('spoiler-style', WPS_PLUGIN_URL . '/js/settings/build/index.css');
+            wp_enqueue_script('spoiler-script', WPS_PLUGIN_URL . '/js/settings/build/index.js', array('wp-element', 'wp-i18n'), '1.0.0', true);
+            wp_localize_script('spoiler-script', 'wps_settings_i18n', array(
+                'rest_url'   => esc_url_raw( get_rest_url() ),
+                'nonce' => wp_create_nonce( 'wp_rest' )
+            ));
+        }
+        
     }
 
     /**
@@ -67,9 +75,7 @@ class WPS_Scripts
      */
     public function load_front_end_styles_and_scripts()
     {
-
     }
-
 }
 
 new WPS_Scripts();

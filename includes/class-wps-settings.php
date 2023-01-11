@@ -73,10 +73,11 @@ class WPs_Settings
     public function spoiler_settings_page()
     {
       ?>
-      <div id="spoiler-settings">
-        <h2>Loading...</h2>
-      </div> <?php
-
+        <div class="wrap">
+            <div id="spoiler-settings">
+                <h2>Loading...</h2>
+            </div>
+        </div><?php
     }
 }
 
