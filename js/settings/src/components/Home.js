@@ -8,14 +8,12 @@ import AddSpoiler from './AddSpoiler';
 const Home = (props) => {
   console.log(props)
   const { form } = props;
-  const [modalActive, setModalActive] = useState(false)
-
+  
   const createSpoiler = useCallback((props) => {
-    console.log(form)
-    if(typeof form !== 'undefined'){
-      console.log(props)
-      const { setModalActive } = props;
-      const { title, content } = form;
+    console.log(form,props)
+    if(props?.title !== '' && props?.content !== ''){
+      
+      const { title, content, setStatus } = props;
       
       axios.post(`wp/v2/spoiler`, {
         title,
@@ -23,14 +21,19 @@ const Home = (props) => {
         status: 'publish'
       })
       .then(response=>{
-        setModalActive(false)
+        if(response.statusText == 'Created') {
+          setStatus('success')
+        } else {
+          setStatus('fail')
+        }
+        
         console.log(response)
       })
     }
   }, [form]);
 
   return <div>
-      <AddSpoiler modalActive={modalActive} setModalActive={setModalActive} createSpoiler={createSpoiler}/>
+      <AddSpoiler />
       <TestTable />
   </div>
 }
