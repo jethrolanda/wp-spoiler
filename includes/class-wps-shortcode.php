@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
 /**
  * WP Settings Class.
  */
-class WPS_Settings
+class WPS_Shortcode
 {
 
     /**
@@ -42,42 +42,26 @@ class WPS_Settings
     public function __construct()
     {
 
-        // Add custom menu to wp admin menu
-        add_action('admin_menu', array($this, 'custom_menu'), 10);
+        // Add custom shortcode
+        add_shortcode( 'wps_spoiler', array($this, 'add_new_shortcode'), 10, 3 );
         
     }
     
     /**
-     * Add custom wp admin menu.
+     * Add new custom shortcode
      * 
      * @since 1.0
      */
-    public function custom_menu()
-    {
-        add_menu_page(
-            'Spoiler',
-            'Spoiler',
-            'edit_posts',
-            'spoiler_settings',
-            array($this, 'spoiler_settings_page'),
-            'dashicons-media-spreadsheet'
-        );
+    public function add_new_shortcode($atts, $content, $tag)
+    { 
+        // error_log(print_r($atts,true));
+        // error_log(print_r($content,true));
+        // error_log(print_r($tag,true));
+        
+        return "<span class='wps-spoiler'>Warning: Spoiler Alert</span>";
+
     }
     
-    /**
-     * Display content to the new added custom wp admin menu.
-     * 
-     * @since 1.0
-     */
-    public function spoiler_settings_page()
-    {
-      ?>
-        <div class="wrap">
-            <div id="spoiler-settings">
-                <h2>Loading...</h2>
-            </div>
-        </div><?php
-    }
 }
 
-new WPS_Settings();
+new WPS_Shortcode();

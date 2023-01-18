@@ -88,7 +88,7 @@ export const spoilerToUpdateData = (state) => state.spoilerState.spoilerToUpdate
 
 // Fetch all spoiler list
 export const fetchSpoilers = (activePage) => (dispatch) => {
-  axios.get(`wp/v2/spoiler?page=${activePage ?? 1}`)
+  axios.get(`wp/v2/spoiler?status=publish&page=${activePage ?? 1}`)
   .then((response) => {
     console.log(response)
     dispatch(setSpoilerList(response.data));

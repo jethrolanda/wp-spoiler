@@ -91,6 +91,10 @@ final class WPS_Bootstrap
 
         include_once WPS_ABSPATH . 'includes/class-wps-scripts.php';
         include_once WPS_ABSPATH . 'includes/class-wps-settings.php';
+        include_once WPS_ABSPATH . 'includes/class-wps-shortcode.php';
+
+        // Custom Block
+        include_once WPS_ABSPATH . 'js/blocks/wp-spoiler-block/wp-spoiler-block.php';
 
     }
 
