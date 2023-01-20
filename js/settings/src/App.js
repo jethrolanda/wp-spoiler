@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import { Icon, Menu, Divider, Grid, Header, Image } from 'semantic-ui-react'
+import { Icon, Menu, Divider, Grid } from 'semantic-ui-react'
 import Home from './components/Home'
 import Setting from './components/Setting'
+import {
+    useSearchParams,
+    Link
+  } from "react-router-dom";
 
 const App = () => {
 
-    const [active, setActive] = useState('home');
-
-    const handleItemClick = (e, {name}) => {
-        setActive(name)
-    }
-
+    const [searchParams, setSearchParams] = useSearchParams();
+    
     return (
         <>
             <div>
@@ -19,22 +18,30 @@ const App = () => {
                 <Grid stackable columns={2}>
                     <Grid.Column mobile={16} tablet={16} computer={2} widescreen={1}>
                         <Menu compact icon='labeled' vertical>
-                            <Menu.Item 
-                                name='home'
-                                active={active === 'home'}
-                                onClick={handleItemClick}>
-                                <Icon name='home' />Home
-                            </Menu.Item>
-
-                            <Menu.Item 
-                                name='setting'
-                                active={active === 'setting'}
-                                onClick={handleItemClick}>
-                                <Icon name='setting' />Setting</Menu.Item>
+                            <Link to="?page=spoiler_settings">
+                                <Menu.Item 
+                                    name='home'
+                                    active={searchParams.get('path') === null}>
+                                    <Icon name='home' />Home
+                                </Menu.Item>    
+                            </Link>
+                            
+                            <Link to="?page=spoiler_settings&path=/setting">
+                                <Menu.Item 
+                                    name='setting'
+                                    active={searchParams.get('path') === '/setting'}>
+                                    <Icon name='setting' />Setting</Menu.Item>
+                            </Link>
+                            
                         </Menu>
                     </Grid.Column>
                     <Grid.Column mobile={16} tablet={16} computer={14} widescreen={15}>
-                        { active === 'setting' ? <Setting/> : <Home/> }
+                        { searchParams.get('path') === '/setting' ? <Setting/> : <Home/> }
+                        {/* <Routes>
+                            <Route index element={<Home />} />
+                            <Route path="setting" element={<Setting />}>
+                            </Route>
+                        </Routes> */}
                     </Grid.Column>
                 </Grid>
             </div>

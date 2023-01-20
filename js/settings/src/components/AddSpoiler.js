@@ -10,7 +10,8 @@ import {
   updateSpoiler,
   setModalFormView,
   spoilerToUpdateData,
-  selectedSpoilerId
+  selectedSpoilerId,
+  fetchingSpoiler
 } from '../store/reducer/appSlice';
 
 const required = value => (value ? undefined : 'Required')
@@ -37,8 +38,9 @@ const AddSpoiler = () => {
   const modalView = useSelector(modalFormView);
   const data = useSelector(spoilerToUpdateData);
   const spoilerId = useSelector(selectedSpoilerId);
+  const isFetching = useSelector(fetchingSpoiler);
   const dispatch = useDispatch();
-console.log(spoilerId)
+
   return <>
     <Modal
         onClose={() => {dispatch(setModalActive(false)); setStatus(false); }}
@@ -53,7 +55,7 @@ console.log(spoilerId)
         </Modal.Header>
         <Modal.Content image>
           <Modal.Description>
-          <FormStatus status={status}/>
+            <FormStatus status={status}/>
             <Form
               initialValues={{ 
                 title: modalView === 'add' ? '' : data?.title?.rendered, 
@@ -66,29 +68,46 @@ console.log(spoilerId)
             >
               {({ handleSubmit, pristine, form, submitting }) => (
                 
-                  <SemanticForm onSubmit={handleSubmit}>
+                  <SemanticForm onSubmit={handleSubmit} loading={isFetching}>
                     <Field name="title" validate={required}>
                       {({ input, meta }) => (
                         <div>
                           <SemanticForm.Field required>
-                            <label>Title</label>
-                            <SemanticForm.Input {...input} type="text" placeholder="Title" />
+                            {/* <label>Title</label> */}
+                            <SemanticForm.Input {...input} fluid 
+                              label="Title" 
+                              type="text" 
+                              placeholder="Title" 
+                              error={meta.error && meta.touched}
+                              // error={meta.error && meta.touched &&{
+                              //   content: 'Title is required',
+                              //   pointing: '',
+                              // }}
+                            />
                           </SemanticForm.Field>
-                          {meta.error && meta.touched && <Message negative>{meta.error}</Message>}
                         </div>
                       )}
                     </Field>
+                    <br />
                     <Field name="content" validate={required}>
                         {({ input, meta }) => (
                           <div>
                             <SemanticForm.Field required>
                             <label>Content</label>
-                            <SemanticForm.TextArea {...input} type="text" placeholder="Content" />
+                            <SemanticForm.TextArea {...input} fluid
+                              type="text" 
+                              placeholder="Content" 
+                              error={meta.error && meta.touched}
+                              // error={meta.error && meta.touched && {
+                              //   content: 'Content is required',
+                              //   pointing: 'below',
+                              // }}
+                            />
                           </SemanticForm.Field>
-                          {meta.error && meta.touched && <Message negative>{meta.error}</Message>}
                           </div>
                         )}
-                      </Field>
+                    </Field>
+                    <br />
                     <SemanticForm.Group inline className="form-actions">
                       <Button 
                         type='submit'

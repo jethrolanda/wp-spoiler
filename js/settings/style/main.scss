@@ -1,4 +1,8 @@
 #spoiler-settings {
+
+  h1{
+    margin-bottom: 20px;
+  }
   .app-title {
       font-size: 1.5em;
       font-weight: bold;
@@ -12,6 +16,19 @@
     padding-top: 0px;
   }
 
+  .wps-form-settings{
+    font-size: 16px!important;
+    label{
+      font-size: 16px!important;
+      margin-bottom: 10px!important;
+    }
+    label.wps-label{
+      margin-bottom: 10px!important;
+      display: block;
+      font-weight: 700;
+    }
+  }
+
 } 
 
 // Modal BG
@@ -20,4 +37,11 @@
 }
 .form-actions{
   justify-content: flex-end;
+}
+
+.notice, div.error, div.updated{
+  border-left-color: transparent;
+  padding: 0px;
+  border: 0px;
+  box-shadow: none;
 }

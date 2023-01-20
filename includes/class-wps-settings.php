@@ -45,6 +45,12 @@ class WPS_Settings
         // Add custom menu to wp admin menu
         add_action('admin_menu', array($this, 'custom_menu'), 10);
         
+        // Fetch setting via ajax 
+        add_action("wp_ajax_wps_fetch_settings", array($this, 'wps_fetch_settings'));
+
+        // Save setting via ajax 
+        add_action("wp_ajax_wps_save_settings", array($this, 'wps_save_settings'));
+
     }
     
     /**
@@ -78,6 +84,65 @@ class WPS_Settings
             </div>
         </div><?php
     }
+    
+    /**
+     * Fetch settings.
+     * 
+     * @since 1.0
+     */
+    public function wps_fetch_settings()
+    {
+        
+        if (!defined('DOING_AJAX') || !DOING_AJAX) {
+            wp_die();
+        }
+        
+        /**
+         * Verify nonce if its the same as we created, if not then we return
+         */
+        if (isset($_POST['nonce']) && !wp_verify_nonce($_POST['nonce'], 'settings_nonce')) {
+            wp_die();
+        }
+        
+        $data = get_option('wps_setting', array());
+        
+        wp_send_json(array(
+            'status' => 'success',
+            'data' => $data
+        ));
+        
+    }
+
+    /**
+     * Save settings.
+     * 
+     * @since 1.0
+     */
+    public function wps_save_settings()
+    {
+        
+        if (!defined('DOING_AJAX') || !DOING_AJAX) {
+            wp_die();
+        }
+
+        /**
+         * Verify nonce if its the same as we created, if not then we return
+         */
+        if (isset($_POST['nonce']) && !wp_verify_nonce($_POST['nonce'], 'settings_nonce')) {
+            wp_die();
+        }  
+
+        $data = isset($_POST['data']) && is_array($_POST['data']) ? $_POST['data'] : array();
+        update_option('wps_setting', $data);
+        error_log(print_r($data,true));
+        wp_send_json(array(
+            'status' => 'success',
+            'data' => $data
+        ));
+        
+    }
+    
+
 }
 
 new WPS_Settings();

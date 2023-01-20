@@ -90,7 +90,7 @@ export const spoilerToUpdateData = (state) => state.spoilerState.spoilerToUpdate
 export const fetchSpoilers = (activePage) => (dispatch) => {
   axios.get(`wp/v2/spoiler?status=publish&page=${activePage ?? 1}`)
   .then((response) => {
-    console.log(response)
+    
     dispatch(setSpoilerList(response.data));
     dispatch(setSpoilerAdded(false));
     dispatch(setFetchingSpoiler(false));
@@ -108,6 +108,8 @@ export const fetchSpoiler = (id) => (dispatch) => {
     axios.get(`wp/v2/spoiler/${id}`)
     .then(response=>{
 
+      dispatch(setFetchingSpoiler(false));
+      
       if(response.statusText == 'OK'){
         dispatch(setSpoilerToUpdateData(response.data));
       } else {

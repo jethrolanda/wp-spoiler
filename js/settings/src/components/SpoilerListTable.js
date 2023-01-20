@@ -73,7 +73,7 @@ const LoadingTable = () => {
   </>
 }
 
-const TestTable = () => {
+const SpoilerListTable = () => {
 
   const data = useSelector(spoilerList);
   const isFetching = useSelector(fetchingSpoiler);
@@ -118,6 +118,7 @@ const TestTable = () => {
                     dispatch(setModalFormView('update'));
                     dispatch(fetchSpoiler(d.id));
                     dispatch(setSelectedSpoilerId(d.id));
+                    dispatch(setFetchingSpoiler(true));
                   }}><Icon name="edit outline"/></a>
                   <a href="#" onClick={()=> {
                     dispatch(setShowConfirm(true)); 
@@ -150,4 +151,4 @@ const TestTable = () => {
   
 }
 
-export default TestTable
+export default SpoilerListTable

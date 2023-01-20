@@ -62,7 +62,9 @@ class WPS_Scripts
             wp_enqueue_script('spoiler-setting-script', WPS_PLUGIN_URL . '/js/settings/build/index.js', array('wp-element', 'wp-i18n'), '1.0.0', true);
             wp_localize_script('spoiler-setting-script', 'wps_settings_i18n', array(
                 'rest_url'   => esc_url_raw( get_rest_url() ),
-                'nonce' => wp_create_nonce( 'wp_rest' )
+                'nonce' => wp_create_nonce( 'wp_rest' ),
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'settings_nonce' => wp_create_nonce( 'settings_nonce' ),
             ));
         }
         
