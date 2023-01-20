@@ -1,4 +1,23 @@
 .wps-spoiler{
   color: transparent;
   text-shadow: 0 0 13px rgb(0 0 0 / 40%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #eeeeee;
+  position: relative;
+}
+
+.wps-spoiler button{
+  font-size: 14px;
+  padding: 2px 10px;
+  background: #929eaa;
+  color: #eee;
+  border-radius: 4px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
 }

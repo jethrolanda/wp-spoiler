@@ -134,7 +134,7 @@ class WPS_Settings
 
         $data = isset($_POST['data']) && is_array($_POST['data']) ? $_POST['data'] : array();
         update_option('wps_setting', $data);
-        error_log(print_r($data,true));
+        
         wp_send_json(array(
             'status' => 'success',
             'data' => $data

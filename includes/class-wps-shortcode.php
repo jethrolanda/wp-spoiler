@@ -54,11 +54,8 @@ class WPS_Shortcode
      */
     public function add_new_shortcode($atts, $content, $tag)
     { 
-        // error_log(print_r($atts,true));
-        // error_log(print_r($content,true));
-        // error_log(print_r($tag,true));
         
-        return "<span class='wps-spoiler'>Warning: Spoiler Alert</span>";
+        return "<span class='wps-spoiler'>" . $content . "</span>";
 
     }
     

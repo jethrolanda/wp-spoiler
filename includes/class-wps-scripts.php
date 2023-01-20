@@ -81,6 +81,15 @@ class WPS_Scripts
     public function load_front_end_styles_and_scripts()
     {
         wp_enqueue_style('spoiler-plugin-style', WPS_PLUGIN_URL . '/css/style.css');
+
+        wp_enqueue_script('spoiler-frontend-script', WPS_PLUGIN_URL . '/js/frontend/index.js', array(), '1.0.0', true);
+        wp_localize_script('spoiler-frontend-script', 'wps_frontend_i18n', array(
+            'settings'   => get_option('wps_setting')
+        ));
+
+        wp_enqueue_script('spoiler-plugin-style-popperjs', 'https://unpkg.com/@popperjs/core@2');
+        wp_enqueue_script('spoiler-plugin-style-tippy-js', 'https://unpkg.com/tippy.js@6');
+
     }
 
 }
